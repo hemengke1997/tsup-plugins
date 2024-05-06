@@ -1,0 +1,37 @@
+{
+  "name": "tsup-plugin-bundleless",
+  "version": "0.0.0",
+  "description": "tsup plugin to bundleless (output as file-to-file)",
+  "keywords": [
+    "tsup",
+    "plugin",
+    "bundleless"
+  ],
+  "license": "MIT",
+  "author": "hemengke1997",
+  "files": [
+    "CHANGELOG.md",
+    "README.md",
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "tsup src/index.ts --watch",
+    "build": "rm -rf dist && tsup src/index.ts",
+    "release": "pnpm run build && pnpm publish --access public",
+    "test": "vitest",
+    "up": "taze -I -w"
+  },
+  "dependencies": {
+    "tsc-alias": "^1.8.8"
+  }
+}
