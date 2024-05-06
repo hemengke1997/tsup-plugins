@@ -1,6 +1,6 @@
 {
   "name": "tsup-plugin-css-legacy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "tsup plugin for css legacy",
   "keywords": [
     "tsup",
