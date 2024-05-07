@@ -1,8 +1,8 @@
-import { type ReplaceTscAliasPathsOptions, replaceTscAliasPaths } from 'tsc-alias'
+import { replaceTscAliasPaths } from 'tsc-alias'
 import { type Options } from 'tsup'
 
 export interface IBundleless {
-  ext?: ReplaceTscAliasPathsOptions['resolveFullExtension']
+  ext?: '.js' | '.mjs' | '.cjs'
 }
 
 export function bundleless(options?: IBundleless): Exclude<Options['plugins'], undefined>[number] {

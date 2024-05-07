@@ -1,6 +1,6 @@
-import { defineConfig } from 'tsup'
+import { type Options } from 'tsup'
 
-export const tsup = defineConfig((option) => ({
+export const tsup = (option: Options): Options => ({
   entry: ['src/index.ts'],
   dts: true,
   format: ['cjs', 'esm'],
@@ -10,4 +10,4 @@ export const tsup = defineConfig((option) => ({
   clean: !option.watch,
   minify: false,
   sourcemap: !!option.watch,
-}))
+})

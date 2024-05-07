@@ -1,6 +1,6 @@
 {
   "name": "tsup-plugin-bundleless",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "tsup plugin to bundleless (output as file-to-file)",
   "keywords": [
     "tsup",
@@ -31,7 +31,7 @@
     "test": "vitest",
     "up": "taze -I -w"
   },
-  "dependencies": {
+  "devDependencies": {
     "tsc-alias": "^1.8.8"
   }
 }
