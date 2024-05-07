@@ -1,18 +1,29 @@
 diff --git a/dist/helpers/replacers.js b/dist/helpers/replacers.js
-index 37cc9b4e7f6cdf61ac7c4df71c6fa144506e7afc..3487e9aabe5d402d8b000b6bc55598d42b309be4 100644
+index 37cc9b4e7f6cdf61ac7c4df71c6fa144506e7afc..99a1a2ab3c93ec17a6085db20993727c7686adc2 100644
 --- a/dist/helpers/replacers.js
 +++ b/dist/helpers/replacers.js
-@@ -54,7 +54,8 @@ function importReplacers(config, replacers, cmdReplacers) {
+@@ -48,13 +48,19 @@ function importReplacers(config, replacers, cmdReplacers) {
+         });
+         config.output.debug('Reading replacers config');
+         const entries = Object.entries(merged);
++        const baseUrlReplacer = require('../replacers/base-url.replacer')
++        const defaultReplacer = require('../replacers/default.replacer')
++        const _replacers = {
++          'base-url': baseUrlReplacer,
++          'default': defaultReplacer
++        }
+         try {
+             for (var entries_1 = __asyncValues(entries), entries_1_1; entries_1_1 = yield entries_1.next(), !entries_1_1.done;) {
+                 const replacer = entries_1_1.value;
                  if (replacer[1].enabled) {
                      if (Object.keys(defaultReplacers).includes(replacer[0])) {
                          config.output.debug('Loading default replacer:', replacer);
 -                        const replacerModule = yield Promise.resolve().then(() => require(`../replacers/${replacer[0]}.replacer`));
-+                        const p = `../replacers/${replacer[0]}.replacer`
-+                        const replacerModule = yield Promise.resolve().then(() => require(p));
++                        const replacerModule = _replacers[replacer[0]];
                          config.replacers.push(replacerModule.default);
                      }
                      const file = (_b = replacer[1]) === null || _b === void 0 ? void 0 : _b.file;
-@@ -109,11 +110,11 @@ function importReplacers(config, replacers, cmdReplacers) {
+@@ -109,11 +115,11 @@ function importReplacers(config, replacers, cmdReplacers) {
      });
  }
  exports.importReplacers = importReplacers;
@@ -26,7 +37,7 @@ index 37cc9b4e7f6cdf61ac7c4df71c6fa144506e7afc..3487e9aabe5d402d8b000b6bc55598d4
          if (code !== tempCode) {
              config.output.debug('replaced file with changes:', file);
              yield fs_1.promises.writeFile(file, tempCode, 'utf8');
-@@ -124,7 +125,7 @@ function replaceAlias(config, file, resolveFullPath) {
+@@ -124,7 +130,7 @@ function replaceAlias(config, file, resolveFullPath) {
      });
  }
  exports.replaceAlias = replaceAlias;
@@ -35,7 +46,7 @@ index 37cc9b4e7f6cdf61ac7c4df71c6fa144506e7afc..3487e9aabe5d402d8b000b6bc55598d4
      config.replacers.forEach((replacer) => {
          code = (0, utils_1.replaceSourceImportPaths)(code, file, (orig) => replacer({
              orig,
-@@ -133,7 +134,7 @@ function replaceAliasString(config, file, code, resolveFullPath) {
+@@ -133,7 +139,7 @@ function replaceAliasString(config, file, code, resolveFullPath) {
          }));
      });
      if (resolveFullPath) {

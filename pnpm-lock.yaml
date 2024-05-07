@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   tsc-alias@1.8.8:
-    hash: qv62irx2rdyqlxwebo2jevn7oy
+    hash: fpzys3f4mu4dlaumsfm2zvj3ky
     path: patches/tsc-alias@1.8.8.patch
 
 importers:
@@ -60,7 +60,7 @@ importers:
     devDependencies:
       tsc-alias:
         specifier: ^1.8.8
-        version: 1.8.8(patch_hash=qv62irx2rdyqlxwebo2jevn7oy)
+        version: 1.8.8(patch_hash=fpzys3f4mu4dlaumsfm2zvj3ky)
 
   packages/css-legacy: {}
 
@@ -6723,7 +6723,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsc-alias@1.8.8(patch_hash=qv62irx2rdyqlxwebo2jevn7oy):
+  /tsc-alias@1.8.8(patch_hash=fpzys3f4mu4dlaumsfm2zvj3ky):
     resolution: {integrity: sha512-OYUOd2wl0H858NvABWr/BoSKNERw3N9GTi3rHPK8Iv4O1UyUXIrTTOAZNHsjlVpXFOhpJBVARI1s+rzwLivN3Q==}
     hasBin: true
     dependencies:
