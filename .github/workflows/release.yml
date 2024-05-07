@@ -17,8 +17,4 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
-
-      - run: npx changelogithub
-        env:
-          GITHUB_TOKEN: ${{ secrets.ghb_token }}
+          node-version: 18.x
