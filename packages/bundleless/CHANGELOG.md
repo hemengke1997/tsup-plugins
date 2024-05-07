@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 0.1.3
+
+### Patch Changes
+
+- add internal prop
+
 ## 0.1.2
 
 ### Patch Changes
