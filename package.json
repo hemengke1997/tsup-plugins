@@ -62,5 +62,10 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "pnpm": {
+    "patchedDependencies": {
+      "tsc-alias@1.8.8": "patches/tsc-alias@1.8.8.patch"
+    }
+  }
 }

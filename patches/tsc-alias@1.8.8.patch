@@ -1,0 +1,139 @@
+diff --git a/dist/helpers/replacers.js b/dist/helpers/replacers.js
+index 37cc9b4e7f6cdf61ac7c4df71c6fa144506e7afc..dace5333c32ab0019276d907b783f2e2c0d10672 100644
+--- a/dist/helpers/replacers.js
++++ b/dist/helpers/replacers.js
+@@ -109,11 +109,11 @@ function importReplacers(config, replacers, cmdReplacers) {
+     });
+ }
+ exports.importReplacers = importReplacers;
+-function replaceAlias(config, file, resolveFullPath) {
++function replaceAlias(config, file, resolveFullPath, resolveFullExtension) {
+     return __awaiter(this, void 0, void 0, function* () {
+         config.output.debug('Starting to replace file:', file);
+         const code = yield fs_1.promises.readFile(file, 'utf8');
+-        const tempCode = replaceAliasString(config, file, code, resolveFullPath);
++        const tempCode = replaceAliasString(config, file, code, resolveFullPath, resolveFullExtension);
+         if (code !== tempCode) {
+             config.output.debug('replaced file with changes:', file);
+             yield fs_1.promises.writeFile(file, tempCode, 'utf8');
+@@ -124,7 +124,7 @@ function replaceAlias(config, file, resolveFullPath) {
+     });
+ }
+ exports.replaceAlias = replaceAlias;
+-function replaceAliasString(config, file, code, resolveFullPath) {
++function replaceAliasString(config, file, code, resolveFullPath, resolveFullExtension) {
+     config.replacers.forEach((replacer) => {
+         code = (0, utils_1.replaceSourceImportPaths)(code, file, (orig) => replacer({
+             orig,
+@@ -133,7 +133,7 @@ function replaceAliasString(config, file, code, resolveFullPath) {
+         }));
+     });
+     if (resolveFullPath) {
+-        code = (0, utils_1.resolveFullImportPaths)(code, file);
++        code = (0, utils_1.resolveFullImportPaths)(code, file, resolveFullExtension);
+     }
+     return code;
+ }
+diff --git a/dist/index.js b/dist/index.js
+index 4fb1d5dd5b3ed75e9b6a0ce29120ac747ba60c60..509ae53bff532c8fb479671291a8be9cd7e1c52c 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -38,7 +38,7 @@ function replaceTscAliasPaths(options = Object.assign({}, defaultConfig)) {
+             onlyFiles: true
+         });
+         output.debug('Found files:', files);
+-        const replaceList = yield Promise.all(files.map((file) => OpenFilesLimit(() => (0, helpers_1.replaceAlias)(config, file, options === null || options === void 0 ? void 0 : options.resolveFullPaths))));
++        const replaceList = yield Promise.all(files.map((file) => OpenFilesLimit(() => (0, helpers_1.replaceAlias)(config, file, options === null || options === void 0 ? void 0 : options.resolveFullPaths, options === null || options === void 0 ? void 0 : options.resolveFullExtension))));
+         const replaceCount = replaceList.filter(Boolean).length;
+         output.info(`${replaceCount} files were affected!`);
+         if (options.watch) {
+@@ -66,7 +66,7 @@ function prepareSingleFileReplaceTscAliasPaths(options = Object.assign({}, defau
+     return __awaiter(this, void 0, void 0, function* () {
+         const config = yield (0, helpers_1.prepareConfig)(options);
+         return ({ fileContents, filePath }) => {
+-            return (0, helpers_1.replaceAliasString)(config, filePath, fileContents, options === null || options === void 0 ? void 0 : options.resolveFullPaths);
++            return (0, helpers_1.replaceAliasString)(config, filePath, fileContents, options === null || options === void 0 ? void 0 : options.resolveFullPaths, options === null || options === void 0 ? void 0 : options.resolveFullExtension);
+         };
+     });
+ }
+diff --git a/dist/interfaces.d.ts b/dist/interfaces.d.ts
+index 2291a17a3420fd03d513996fd00e880e5dd008f4..a004cefb4952a068a290e57625a1e2f57ceec369 100644
+--- a/dist/interfaces.d.ts
++++ b/dist/interfaces.d.ts
+@@ -53,6 +53,7 @@ export interface ReplaceTscAliasPathsOptions {
+     verbose?: boolean;
+     debug?: boolean;
+     resolveFullPaths?: boolean;
++    resolveFullExtension?: '.js' | '.mjs' | '.cjs';
+     replacers?: string[];
+     output?: IOutput;
+     aliasTrie?: TrieNode<Alias>;
+diff --git a/dist/utils/import-path-resolver.js b/dist/utils/import-path-resolver.js
+index ebaf620846b7cf6682c2f4439cdf373ad866f760..9a5fc84a9c852b0fef1f5980348b3147ad23c212 100644
+--- a/dist/utils/import-path-resolver.js
++++ b/dist/utils/import-path-resolver.js
+@@ -9,12 +9,16 @@ const pathStringContent = `[^"'\r\n]+`;
+ const importString = `(?:${anyQuote}${pathStringContent}${anyQuote})`;
+ const funcStyle = `(?:\\b(?:import|require)\\s*\\(\\s*(\\/\\*.*\\*\\/\\s*)?${importString}\\s*\\))`;
+ const globalStyle = `(?:\\bimport\\s+${importString})`;
++const globalMinimizedStyle = `(?:\\bimport${importString})`;
+ const fromStyle = `(?:\\bfrom\\s+${importString})`;
++const fromMinimizedStyle = `(?:\\bfrom${importString})`;
+ const moduleStyle = `(?:\\bmodule\\s+${importString})`;
+ const importRegexString = `(?:${[
+     funcStyle,
+     globalStyle,
++    globalMinimizedStyle,
+     fromStyle,
++    fromMinimizedStyle,
+     moduleStyle
+ ].join(`|`)})`;
+ class ImportPathResolver {
+@@ -29,29 +33,29 @@ class ImportPathResolver {
+         this.source = this.source.replace(ImportPathResolver.newImportStatementRegex('g'), replacer);
+         return this;
+     }
+-    resolveFullImportPaths() {
++    resolveFullImportPaths(ext = '.js') {
+         this.replaceSourceImportPaths((importStatement) => {
+             const importPathMatch = importStatement.match((0, exports.newStringRegex)());
+             if (!importPathMatch) {
+                 return importStatement;
+             }
+             const { path, pathWithQuotes } = importPathMatch.groups;
+-            const fullPath = normalizePath(this.resolveFullPath(path));
++            const fullPath = normalizePath(this.resolveFullPath(path, ext));
+             return importStatement.replace(pathWithQuotes, pathWithQuotes.replace(path, fullPath));
+         });
+         return this;
+     }
+-    resolveFullPath(importPath) {
+-        if (importPath.match(/\.js$/)) {
+-            return importPath;
++    resolveFullPath(importPath, ext = '.js') {
++        if (importPath.match(new RegExp(`\\${ext}$`))) {
++          return importPath;
+         }
+         if (!importPath.match(/[/\\]$/)) {
+-            const asFilePath = `${importPath}.js`;
++            const asFilePath = `${importPath}${ext}`;
+             if ((0, fs_1.existsSync)((0, path_1.resolve)(this.sourceDir, asFilePath))) {
+                 return asFilePath;
+             }
+         }
+-        let asFilePath = (0, path_1.join)(importPath, 'index.js');
++        let asFilePath = (0, path_1.join)(importPath, 'index' + ext);
+         if ((importPath.startsWith('./') || importPath === '.') &&
+             !asFilePath.startsWith('./')) {
+             asFilePath = './' + asFilePath;
+@@ -66,8 +70,8 @@ class ImportPathResolver {
+     static newImportStatementRegex(flags = '') {
+         return new RegExp(importRegexString, flags);
+     }
+-    static resolveFullImportPaths(code, path) {
+-        return new ImportPathResolver(code, path).resolveFullImportPaths().source;
++    static resolveFullImportPaths(code, path, ext = '.js') {
++        return new ImportPathResolver(code, path).resolveFullImportPaths(ext).source;
+     }
+     static replaceSourceImportPaths(code, path, replacer) {
+         return new ImportPathResolver(code, path).replaceSourceImportPaths(replacer)

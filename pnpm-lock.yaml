@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  tsc-alias@1.8.8:
+    hash: 4ub37rlt2rgwyekrlhhmtmpanm
+    path: patches/tsc-alias@1.8.8.patch
+
 importers:
 
   .:
@@ -55,7 +60,7 @@ importers:
     dependencies:
       tsc-alias:
         specifier: ^1.8.8
-        version: 1.8.8
+        version: 1.8.8(patch_hash=4ub37rlt2rgwyekrlhhmtmpanm)
 
   packages/css-legacy: {}
 
@@ -6687,7 +6692,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsc-alias@1.8.8:
+  /tsc-alias@1.8.8(patch_hash=4ub37rlt2rgwyekrlhhmtmpanm):
     resolution: {integrity: sha512-OYUOd2wl0H858NvABWr/BoSKNERw3N9GTi3rHPK8Iv4O1UyUXIrTTOAZNHsjlVpXFOhpJBVARI1s+rzwLivN3Q==}
     hasBin: true
     dependencies:
@@ -6698,6 +6703,7 @@ packages:
       normalize-path: 3.0.0
       plimit-lit: 1.6.1
     dev: false
+    patched: true
 
   /tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}

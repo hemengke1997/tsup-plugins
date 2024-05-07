@@ -1,9 +1,13 @@
-import { replaceTscAliasPaths } from 'tsc-alias'
+import { type ReplaceTscAliasPathsOptions, replaceTscAliasPaths } from 'tsc-alias'
 import { type Options } from 'tsup'
 
-export function bundless(): Exclude<Options['plugins'], undefined>[number] {
+export interface IBundleless {
+  ext?: ReplaceTscAliasPathsOptions['resolveFullExtension']
+}
+
+export function bundleless(options?: IBundleless): Exclude<Options['plugins'], undefined>[number] {
   return {
-    name: 'tsup-plugin-bundless',
+    name: 'tsup-plugin-bundleless',
     esbuildOptions(options) {
       options.bundle = false
     },
@@ -11,6 +15,7 @@ export function bundless(): Exclude<Options['plugins'], undefined>[number] {
       replaceTscAliasPaths({
         outDir: this.options.outDir,
         resolveFullPaths: true,
+        resolveFullExtension: options?.ext,
       })
     },
   }
