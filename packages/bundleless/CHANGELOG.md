@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 0.1.2
+
+### Patch Changes
+
+- 2f8d65d: fix: lazy import
+
 ## 0.1.1
 
 ### Patch Changes
