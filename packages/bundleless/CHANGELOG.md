@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 0.2.0
+
+### Minor Changes
+
+- add `bundle` option to controll whether esbuild bundle behavior
+
 ## 0.1.3
 
 ### Patch Changes

@@ -3,17 +3,21 @@ import { type Options } from 'tsup'
 
 export interface IBundleless {
   ext?: '.js' | '.mjs' | '.cjs'
+  bundle?: boolean
   /**
    * @internal
    */
   _replaceTscAliasPathsOptions?: ReplaceTscAliasPathsOptions
 }
 
-export function bundleless(options?: IBundleless): Exclude<Options['plugins'], undefined>[number] {
+type Plugin = Exclude<Options['plugins'], undefined>[number]
+
+export function bundleless(options?: IBundleless): Plugin {
   return {
     name: 'tsup-plugin-bundleless',
-    esbuildOptions(options) {
-      options.bundle = false
+    esbuildOptions(esbuildOptions) {
+      const { bundle = false } = options || {}
+      esbuildOptions.bundle = bundle
     },
     async buildEnd() {
       await replaceTscAliasPaths({
