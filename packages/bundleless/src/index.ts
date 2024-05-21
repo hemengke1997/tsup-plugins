@@ -16,8 +16,17 @@ export function bundleless(options?: IBundleless): Plugin {
   return {
     name: 'tsup-plugin-bundleless',
     esbuildOptions(esbuildOptions) {
-      const { bundle = false } = options || {}
-      esbuildOptions.bundle = bundle
+      const { bundle } = options || {}
+      if (typeof bundle === 'undefined') {
+        const { format } = esbuildOptions
+        if (format === 'cjs' || format === 'iife') {
+          esbuildOptions.bundle = true
+          return
+        }
+        esbuildOptions.bundle = false
+      } else {
+        esbuildOptions.bundle = bundle
+      }
     },
     async buildEnd() {
       await replaceTscAliasPaths({

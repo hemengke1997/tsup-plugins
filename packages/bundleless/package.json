@@ -1,6 +1,6 @@
 {
   "name": "tsup-plugin-bundleless",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "tsup plugin to bundleless (output as file-to-file)",
   "keywords": [
     "tsup",
