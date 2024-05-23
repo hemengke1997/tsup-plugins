@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 0.3.0
+
+### Minor Changes
+
+- move tsc-alias to dependencies and patch third lib detect feature
+
 ## 0.2.1
 
 ### Patch Changes

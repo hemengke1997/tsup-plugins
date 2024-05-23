@@ -30,10 +30,10 @@
     }
   },
   "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "lint": "turbo lint",
-    "test": "turbo test",
+    "dev": "turbo dev --filter=\"./packages/*\"",
+    "build": "turbo build --filter=\"./packages/*\"",
+    "lint": "turbo lint --filter=\"./packages/*\"",
+    "test": "turbo test --filter=\"./packages/*\"",
     "prepare": "simple-git-hooks",
     "commitlint": "commitlint -e",
     "up": "taze -I -w",

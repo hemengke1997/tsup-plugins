@@ -1,6 +1,6 @@
 {
   "name": "tsup-plugin-bundleless",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "tsup plugin to bundleless (output as file-to-file)",
   "keywords": [
     "tsup",
@@ -8,7 +8,7 @@
     "bundleless"
   ],
   "license": "MIT",
-  "author": "hemengke1997",
+  "author": "Minko",
   "files": [
     "CHANGELOG.md",
     "README.md",
@@ -31,7 +31,7 @@
     "test": "vitest",
     "up": "taze -I -w"
   },
-  "devDependencies": {
-    "tsc-alias": "^1.8.8"
+  "dependencies": {
+    "tsc-alias": "1.8.8"
   }
 }
