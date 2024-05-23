@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 0.3.1
+
+### Patch Changes
+
+- update tsc-alias to 1.8.10 which supports `resolveFullExtension` option
+
 ## 0.3.0
 
 ### Minor Changes

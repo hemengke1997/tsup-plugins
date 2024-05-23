@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  tsc-alias@1.8.8:
-    hash: i37ssqoahw6wkgn3kcsqpvkigy
-    path: patches/tsc-alias@1.8.8.patch
+  tsc-alias@1.8.10:
+    hash: 2e5tmx7xtyn2wdlmfayor7b5ta
+    path: patches/tsc-alias@1.8.10.patch
 
 importers:
 
@@ -59,8 +59,8 @@ importers:
   packages/bundleless:
     dependencies:
       tsc-alias:
-        specifier: 1.8.8
-        version: 1.8.8(patch_hash=i37ssqoahw6wkgn3kcsqpvkigy)
+        specifier: 1.8.10
+        version: 1.8.10(patch_hash=2e5tmx7xtyn2wdlmfayor7b5ta)
 
   packages/css-legacy: {}
 
@@ -6701,8 +6701,8 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsc-alias@1.8.8(patch_hash=i37ssqoahw6wkgn3kcsqpvkigy):
-    resolution: {integrity: sha512-OYUOd2wl0H858NvABWr/BoSKNERw3N9GTi3rHPK8Iv4O1UyUXIrTTOAZNHsjlVpXFOhpJBVARI1s+rzwLivN3Q==}
+  /tsc-alias@1.8.10(patch_hash=2e5tmx7xtyn2wdlmfayor7b5ta):
+    resolution: {integrity: sha512-Ibv4KAWfFkFdKJxnWfVtdOmB0Zi1RJVxcbPGiCDsFpCQSsmpWyuzHG3rQyI5YkobWwxFPEyQfu1hdo4qLG2zPw==}
     hasBin: true
     dependencies:
       chokidar: 3.6.0

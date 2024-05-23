@@ -1,0 +1,41 @@
+diff --git a/dist/helpers/replacers.js b/dist/helpers/replacers.js
+index ea1310110cde82a51fe702158fcaadeef5b92923..99a1a2ab3c93ec17a6085db20993727c7686adc2 100644
+--- a/dist/helpers/replacers.js
++++ b/dist/helpers/replacers.js
+@@ -48,13 +48,19 @@ function importReplacers(config, replacers, cmdReplacers) {
+         });
+         config.output.debug('Reading replacers config');
+         const entries = Object.entries(merged);
++        const baseUrlReplacer = require('../replacers/base-url.replacer')
++        const defaultReplacer = require('../replacers/default.replacer')
++        const _replacers = {
++          'base-url': baseUrlReplacer,
++          'default': defaultReplacer
++        }
+         try {
+             for (var entries_1 = __asyncValues(entries), entries_1_1; entries_1_1 = yield entries_1.next(), !entries_1_1.done;) {
+                 const replacer = entries_1_1.value;
+                 if (replacer[1].enabled) {
+                     if (Object.keys(defaultReplacers).includes(replacer[0])) {
+                         config.output.debug('Loading default replacer:', replacer);
+-                        const replacerModule = yield Promise.resolve().then(() => require(`../replacers/${replacer[0]}.replacer`));
++                        const replacerModule = _replacers[replacer[0]];
+                         config.replacers.push(replacerModule.default);
+                     }
+                     const file = (_b = replacer[1]) === null || _b === void 0 ? void 0 : _b.file;
+diff --git a/dist/replacers/base-url.replacer.js b/dist/replacers/base-url.replacer.js
+index 8ed8fae96412fc2c423afa30f8ccca293d57493b..4606c64a34adaa84aea86c61c823a8b3b02f27ce 100644
+--- a/dist/replacers/base-url.replacer.js
++++ b/dist/replacers/base-url.replacer.js
+@@ -11,6 +11,11 @@ function replaceBaseUrlImport({ orig, file, config }) {
+     if (requiredModule.startsWith('.')) {
+         config.output.debug('base-url replacer - already resolved');
+         return orig;
++    } else {
++      try {
++        const isModuleExists = require.resolve(requiredModule)
++        if(isModuleExists) return orig
++      } catch {}
+     }
+     if (config.pathCache.existsResolvedAlias(`${config.outPath}/${requiredModule}`)) {
+         let relativePath = normalizePath((0, path_1.relative)((0, path_1.dirname)(file), config.pathCache

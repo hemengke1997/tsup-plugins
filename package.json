@@ -65,7 +65,7 @@
   ],
   "pnpm": {
     "patchedDependencies": {
-      "tsc-alias@1.8.8": "patches/tsc-alias@1.8.8.patch"
+      "tsc-alias@1.8.10": "patches/tsc-alias@1.8.10.patch"
     }
   }
 }
