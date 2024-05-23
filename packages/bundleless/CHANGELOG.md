@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 0.3.2
+
+### Patch Changes
+
+- fix: get format from context
+
 ## 0.3.1
 
 ### Patch Changes

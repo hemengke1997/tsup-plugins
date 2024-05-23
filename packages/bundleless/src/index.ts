@@ -18,7 +18,7 @@ export function bundleless(options?: IBundleless): Plugin {
     esbuildOptions(esbuildOptions) {
       const { bundle } = options || {}
       if (typeof bundle === 'undefined') {
-        const { format } = esbuildOptions
+        const { format } = this
         if (format === 'cjs' || format === 'iife') {
           esbuildOptions.bundle = true
           return
