@@ -29,11 +29,12 @@ export function bundleless(options?: IBundleless): Plugin {
       }
     },
     async buildEnd() {
+      const ext = this.options.outExtension?.(this).js as IBundleless['ext']
       await replaceTscAliasPaths({
         outDir: this.options.outDir,
         resolveFullPaths: true,
         watch: false,
-        resolveFullExtension: options?.ext,
+        resolveFullExtension: options?.ext || ext,
         ...options?._replaceTscAliasPathsOptions,
       })
     },

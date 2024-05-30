@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 0.4.0
+
+### Minor Changes
+
+- feat: detect out js extension from tsup context
+
 ## 0.3.2
 
 ### Patch Changes
