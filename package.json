@@ -17,7 +17,7 @@
   "author": "hemengke <https://github.com/hemengke1997>",
   "scripts": {
     "build": "turbo build --filter=\"./packages/*\"",
-    "lint": "turbo lint --filter=\"./packages/*\"",
+    "lint": "eslint . --fix --cache",
     "prepare": "simple-git-hooks",
     "commitlint": "commitlint -e",
     "up": "taze -I -w",
