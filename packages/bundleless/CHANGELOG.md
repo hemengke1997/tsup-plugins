@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 1.0.0
+
+### Major Changes
+
+- feat: support bundle deps in `noExternal`
+
 ## 0.4.0
 
 ### Minor Changes

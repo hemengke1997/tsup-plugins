@@ -6,6 +6,7 @@ export const tsup = (option: Options): Options => ({
   format: ['cjs', 'esm'],
   platform: 'node',
   splitting: false,
+  shims: true,
   treeshake: true,
   clean: !option.watch,
   minify: false,

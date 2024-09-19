@@ -1,7 +1,8 @@
 {
   "name": "tsup-plugin-css-legacy",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "tsup plugin for css legacy",
+  "type": "module",
   "keywords": [
     "tsup",
     "plugin",
@@ -28,7 +29,6 @@
     "dev": "tsup src/index.ts --watch",
     "build": "rm -rf dist && tsup src/index.ts",
     "release": "pnpm run build && pnpm publish --access public",
-    "test": "vitest",
     "up": "taze -I -w"
   }
 }

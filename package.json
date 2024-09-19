@@ -1,7 +1,8 @@
 {
-  "name": "@minko-fe/tsup-plugins",
+  "name": "tsup-plugins",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@9.7.1",
   "description": "tsup plugins",
   "type": "module",
   "keywords": [
@@ -14,26 +15,9 @@
     "url": "git+https://github.com/hemengke1997/tsup-plugins.git"
   },
   "author": "hemengke <https://github.com/hemengke1997>",
-  "files": [
-    "CHANGELOG.md",
-    "README.md",
-    "dist"
-  ],
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    }
-  },
   "scripts": {
-    "dev": "turbo dev --filter=\"./packages/*\"",
     "build": "turbo build --filter=\"./packages/*\"",
     "lint": "turbo lint --filter=\"./packages/*\"",
-    "test": "turbo test --filter=\"./packages/*\"",
     "prepare": "simple-git-hooks",
     "commitlint": "commitlint -e",
     "up": "taze -I -w",
@@ -42,19 +26,18 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.1",
-    "@commitlint/cli": "^18.4.4",
-    "@minko-fe/commitlint-config": "^2.0.7",
-    "@minko-fe/eslint-config": "^2.1.2",
-    "@minko-fe/tsconfig": "^2.0.7",
-    "bumpp": "^9.3.0",
-    "eslint": "^8.56.0",
-    "simple-git-hooks": "^2.9.0",
-    "taze": "^0.11.4",
-    "tsup": "^8.0.2",
-    "turbo": "^1.12.2",
-    "typescript": "^5.3.3",
-    "vitest": "^0.34.6"
+    "@changesets/cli": "^2.27.8",
+    "@commitlint/cli": "^19.5.0",
+    "@minko-fe/commitlint-config": "^2.1.2",
+    "@minko-fe/eslint-config": "^4.0.2",
+    "@minko-fe/tsconfig": "^2.1.1",
+    "bumpp": "^9.5.2",
+    "eslint": "^9.10.0",
+    "simple-git-hooks": "^2.11.1",
+    "taze": "^0.16.9",
+    "tsup": "^8.3.0",
+    "turbo": "^2.1.2",
+    "typescript": "^5.6.2"
   },
   "simple-git-hooks": {
     "commit-msg": "npm run commitlint",
