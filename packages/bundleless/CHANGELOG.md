@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 1.0.1
+
+### Patch Changes
+
+- 99dcb4e: fix: native code could not be cloned
+
 ## 1.0.0
 
 ### Major Changes
