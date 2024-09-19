@@ -1,8 +1,6 @@
 import { defineConfig } from 'tsup'
 import { bundleless } from 'tsup-plugin-bundleless'
 
-const { esbuildPlugins, plugins } = bundleless()
-
 export default defineConfig(() => {
   return {
     entry: ['src/**/*.ts'],
@@ -10,10 +8,10 @@ export default defineConfig(() => {
     platform: 'node',
     target: 'es2020',
     outDir: 'dist/es',
+    dts: true,
     clean: true,
     minify: false,
     outExtension: () => ({ js: '.cjs' }),
-    plugins,
-    esbuildPlugins,
+    ...bundleless(),
   }
 })

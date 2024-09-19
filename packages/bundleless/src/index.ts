@@ -117,4 +117,10 @@ class Bundless {
   }
 }
 
-export const bundleless = (options?: IBundleless) => new Bundless(options)
+export const bundleless = (options?: IBundleless) => {
+  const bl = new Bundless(options)
+  return {
+    esbuildPlugins: bl.esbuildPlugins,
+    plugins: bl.plugins,
+  }
+}
