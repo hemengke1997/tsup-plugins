@@ -17,7 +17,7 @@
   "author": "hemengke <https://github.com/hemengke1997>",
   "scripts": {
     "build": "turbo build --filter=\"./packages/*\"",
-    "lint": "eslint . --fix --cache",
+    "lint": "eslint . --fix",
     "prepare": "simple-git-hooks",
     "commitlint": "commitlint -e",
     "up": "taze -I -w",
@@ -50,5 +50,10 @@
     "patchedDependencies": {
       "tsc-alias@1.8.10": "patches/tsc-alias@1.8.10.patch"
     }
+  },
+  "commitlint": {
+    "extends": [
+      "@minko-fe/commitlint-config"
+    ]
   }
 }
