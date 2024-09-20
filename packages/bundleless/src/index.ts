@@ -1,7 +1,6 @@
 import { type OnResolveArgs, type Plugin } from 'esbuild'
 import isBuiltinModule from 'is-builtin-module'
-import JoyCon from 'joycon'
-import path from 'node:path'
+import { readPackage } from 'read-pkg'
 import resolve from 'resolve'
 import { replaceTscAliasPaths, type ReplaceTscAliasPathsOptions } from 'tsc-alias'
 import { type Options } from 'tsup'
@@ -19,15 +18,11 @@ export interface IBundleless {
 }
 
 class Bundless {
-  private joycon: JoyCon
-
-  constructor(private options?: IBundleless) {
-    this.joycon = new JoyCon()
-  }
+  constructor(private options?: IBundleless) {}
 
   private async loadPkg(cwd: string) {
-    const { data } = await this.joycon.load(['package.json'], cwd, path.dirname(cwd))
-    return data || {}
+    const pkg = await readPackage({ cwd })
+    return pkg
   }
 
   private isSourceCode(args: OnResolveArgs, cwd: string): boolean {
@@ -54,9 +49,7 @@ class Bundless {
         let ext = bundleless.options?.ext || (this.options.outExtension?.(this).js as IBundleless['ext'])
 
         if (!ext) {
-          let { type } = (await bundleless.loadPkg(bundleless.options?.cwd || process.cwd())) as {
-            type: keyof typeof format
-          }
+          let { type } = await bundleless.loadPkg(bundleless.options?.cwd || process.cwd())
 
           const format = {
             module: {
@@ -108,19 +101,25 @@ class Bundless {
     }
   }
 
+  /**
+   * tsup plugins
+   */
   get plugins(): any {
     return [this.tsupPlugin()]
   }
 
+  /**
+   * esbuild plugins
+   */
   get esbuildPlugins(): any {
     return [this.esbuildPlugin()]
   }
 }
 
 export const bundleless = (options?: IBundleless) => {
-  const bl = new Bundless(options)
+  const { esbuildPlugins, plugins } = new Bundless(options)
   return {
-    esbuildPlugins: bl.esbuildPlugins,
-    plugins: bl.plugins,
+    esbuildPlugins,
+    plugins,
   }
 }

@@ -9,7 +9,13 @@
     "css"
   ],
   "license": "MIT",
-  "author": "hemengke1997",
+  "homepage": "https://github.com/hemengke1997/tsup-plugins/tree/master/packages/tsup-plugin-css-legacy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hemengke1997/tsup-plugins.git",
+    "directory": "packages/tsup-plugin-css-legacy"
+  },
+  "author": "Minko <https://github.com/hemengke1997>",
   "files": [
     "CHANGELOG.md",
     "README.md",

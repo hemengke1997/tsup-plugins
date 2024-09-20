@@ -9,10 +9,14 @@
     "bundleless"
   ],
   "license": "MIT",
-  "author": "Minko",
+  "homepage": "https://github.com/hemengke1997/tsup-plugins/tree/master/packages/tsup-plugin-bundleless",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hemengke1997/tsup-plugins.git",
+    "directory": "packages/tsup-plugin-bundleless"
+  },
+  "author": "Minko <https://github.com/hemengke1997>",
   "files": [
-    "CHANGELOG.md",
-    "README.md",
     "dist"
   ],
   "main": "./dist/index.cjs",
@@ -35,7 +39,7 @@
   },
   "dependencies": {
     "is-builtin-module": "^4.0.0",
-    "joycon": "^3.1.1",
+    "read-pkg": "^9.0.1",
     "resolve": "^1.22.8"
   },
   "devDependencies": {
