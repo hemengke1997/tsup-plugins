@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { defineConfig } from 'tsup'
 import { tsup } from '../../tsup.config'
 
