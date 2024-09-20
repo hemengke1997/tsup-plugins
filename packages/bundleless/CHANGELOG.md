@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 1.1.0
+
+### Minor Changes
+
+- 542a6b5: refactor: replace dep
+
 ## 1.0.1
 
 ### Patch Changes
