@@ -93,7 +93,6 @@ class Bundless {
           if (this.isSourceCode(args, this.options?.cwd || process.cwd())) {
             return {
               external: true,
-              sideEffects: true,
             }
           }
         })

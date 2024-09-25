@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 1.1.1
+
+### Patch Changes
+
+- update: rm sideEffects logic
+
 ## 1.1.0
 
 ### Minor Changes
