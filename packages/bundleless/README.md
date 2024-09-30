@@ -1,12 +1,14 @@
 # tsup-plugin-bundleless
 
-## 安装
+> File-to-file build for tsup
+
+## Install
 
 ```bash
 npm i tsup-plugin-bundleless -D
 ```
 
-## 使用
+## Uage
 
 ```ts
 // tsup.config.ts
