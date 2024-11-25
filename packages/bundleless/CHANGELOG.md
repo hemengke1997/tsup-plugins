@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 1.2.0
+
+### Minor Changes
+
+- eaa67c8: feat: support bunless exclude
+
 ## 1.1.1
 
 ### Patch Changes
