@@ -18,6 +18,7 @@
   "scripts": {
     "build": "turbo build --filter=\"./packages/*\"",
     "lint": "eslint . --fix",
+    "test": "vitest",
     "prepare": "simple-git-hooks",
     "commitlint": "commitlint -e",
     "up": "taze -I -w",
@@ -37,7 +38,8 @@
     "taze": "^0.16.9",
     "tsup": "^8.3.0",
     "turbo": "^2.1.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vitest": "^3.0.2"
   },
   "simple-git-hooks": {
     "commit-msg": "npm run commitlint",

@@ -3,7 +3,7 @@ import { bundleless } from 'tsup-plugin-bundleless'
 
 export default defineConfig(() => {
   return {
-    entry: ['src/**/*.ts'],
+    entry: ['src/**/*.{ts,css}'],
     format: ['cjs', 'esm'],
     platform: 'neutral',
     target: 'es2020',

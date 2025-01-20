@@ -1,5 +1,11 @@
 # tsup-plugin-bundleless
 
+## 1.2.1
+
+### Patch Changes
+
+- fix: exclude not working
+
 ## 1.2.0
 
 ### Minor Changes

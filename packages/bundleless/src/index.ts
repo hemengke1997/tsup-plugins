@@ -1,10 +1,10 @@
 import { type OnResolveArgs, type Plugin } from 'esbuild'
 import isBuiltinModule from 'is-builtin-module'
-import micromatch from 'micromatch'
 import { readPackage } from 'read-pkg'
 import resolve from 'resolve'
 import { replaceTscAliasPaths, type ReplaceTscAliasPathsOptions } from 'tsc-alias'
 import { type Options } from 'tsup'
+import { excludeFilter } from './util'
 
 type TsupPlugin = Exclude<Options['plugins'], undefined>[number]
 
@@ -13,9 +13,9 @@ export interface IBundleless {
   /**
    * bundless 排除的文件。如果被排除，则会被 esbuild bundle
    *
-   * @example ['*.css']
+   * @example ['.css', /\.css$/]
    */
-  exclude?: string[]
+  exclude?: (string | RegExp)[]
   cwd?: string
   /**
    * @internal
@@ -33,10 +33,6 @@ class Bundless {
 
   private isSourceCode(args: OnResolveArgs, cwd: string): boolean {
     if (isBuiltinModule(args.path)) {
-      return false
-    }
-
-    if (args.path.endsWith('.css')) {
       return false
     }
 
@@ -100,7 +96,7 @@ class Bundless {
         build.onResolve({ filter: /.*/ }, (args) => {
           if (args.kind === 'entry-point') return
 
-          if (this.options?.exclude?.some((t) => micromatch.isMatch(args.path, t))) {
+          if (excludeFilter(this.options?.exclude, args.path)) {
             return undefined
           }
 
