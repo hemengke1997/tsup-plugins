@@ -10,6 +10,6 @@ export default defineConfig(() => {
     dts: true,
     clean: true,
     minify: false,
-    ...bundleless({ exclude: ['.css'] }),
+    ...bundleless(),
   }
 })

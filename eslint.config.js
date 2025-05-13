@@ -1,7 +1,5 @@
-import { createRequire } from 'node:module'
-const require = createRequire(import.meta.url)
+import { defineConfig } from '@minko-fe/eslint-config'
 
-const { defineConfig } = require('@minko-fe/eslint-config')
 export default defineConfig([
   {
     rules: {

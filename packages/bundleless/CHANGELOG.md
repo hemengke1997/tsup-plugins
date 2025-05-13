@@ -1,5 +1,10 @@
 # tsup-plugin-bundleless
 
+## 1.3.0
+### Minor Changes
+
+- support `disabled` option
+
 ## 1.2.1
 
 ### Patch Changes

@@ -9,6 +9,11 @@ import { excludeFilter } from './util'
 type TsupPlugin = Exclude<Options['plugins'], undefined>[number]
 
 export interface IBundleless {
+  disable?: boolean
+  /**
+   * tsc-alias替换后的文件扩展名
+   * 默认智能推断
+   */
   ext?: '.js' | '.mjs' | '.cjs'
   /**
    * bundless 排除的文件。如果被排除，则会被 esbuild bundle
@@ -16,6 +21,9 @@ export interface IBundleless {
    * @example ['.css', /\.css$/]
    */
   exclude?: (string | RegExp)[]
+  /**
+   * 当前工作目录
+   */
   cwd?: string
   /**
    * @internal
@@ -126,6 +134,12 @@ class Bundless {
 }
 
 export const bundleless = (options?: IBundleless) => {
+  const { disable } = options || {}
+
+  if (disable) {
+    return {}
+  }
+
   const { esbuildPlugins, plugins } = new Bundless(options)
   return {
     esbuildPlugins,
